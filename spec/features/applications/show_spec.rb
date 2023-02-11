@@ -76,14 +76,28 @@ RSpec.describe 'visit application show page' do
 	end
 
 	describe 'submit application' do
-		it 'after adding pets, I see a secition to submit the application' do
+		before do
 			visit "/applications/#{app_1.id}"
-      
-			expect(page).to_not have_field()
-      fill_in 'pet_name', with: 'Pirate'
-			click_button
+			
+			expect(page).to_not have_field(:desc)
+			fill_in 'pet_name', with: 'Pirate'
+			click_button 'Search Pets'
+	
+			click_button "Adopt #{pet_1.name}"
+		end
 
-			expec
+		it 'after adding pets, I see a section to submit the application' do
+			expect(page).to have_field(:desc)
+		end
+
+		it 'shows a field to fill description and allows us to submit application' do
+			fill_in 'desc', with: "I'm nice."
+			click_button 'Submit Application'
+
+			expect(page).to have_content("I'm nice.")
+			expect(page).to_not have_button("Adopt #{pet_1.name}")
+			expect(page).to_not have_field(:pet_name)
+			expect(page).to_not have_field(:desc)
 		end
 	end
 end

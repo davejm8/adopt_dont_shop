@@ -23,9 +23,10 @@
 	<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
 		<%= f.label :desc, 'Why are you a good home?' %>
 		<%= f.text_area :desc %>
-		<%= f.submit %>
+		<%= f.submit 'Submit Application'%>
 	<% end %>
 <% end %>
+
 <br/><br/>
 
 <% if @application.desc.nil? %>
@@ -35,7 +36,6 @@
 		<%= f.submit 'Search Pets' %>
 	<% end %>
 <% end %>
-
 
 <% @pet_search.each do |pet| %>
 	<%= pet.name %><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}?pets=#{pet.id}", method: :patch%><br/> 
