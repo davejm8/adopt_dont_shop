@@ -14,8 +14,6 @@
 	<%= f.label :zip, 'Zipcode:' %>
 	<%= f.text_field :zip %>
 	<br/><br/>
-	<%= f.label :desc, 'Why are you a good home?' %>
-	<%= f.text_area :desc %>
-	<%= f.hidden_field :status, value: 'In Progress' %>
+	<%= f.hidden_field :status, value: "In Progress" %>
 	<%= f.submit 'Submit Application' %>
 <% end %>

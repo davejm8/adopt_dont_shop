@@ -8,7 +8,7 @@
 <%= @application.state %>
 <p style='font-weight: bold'>Zip:</p>
 <%= @application.zip %>
-<p style='font-weight: bold'>Description:</p>
+<p style='font-weight: bold'>Why are you a good home?:</p>
 <%= @application.desc %>
 <p style='font-weight: bold'>Status:</p>
 <%= @application.status %>
@@ -17,12 +17,25 @@
   <%= pet.name %>
 <% end %>
 
+<br/><br/>
 
-<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f|%>
-	<%= f.label :pet_name, 'Add a Pet to this Application' %>
-	<%= f.text_field :pet_name %>
-	<%= f.submit 'Search Pets' %>
+<% if !@pets.empty? && @application.desc.nil? %>
+	<%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+		<%= f.label :desc, 'Why are you a good home?' %>
+		<%= f.text_area :desc %>
+		<%= f.submit %>
+	<% end %>
 <% end %>
+<br/><br/>
+
+<% if @application.desc.nil? %>
+	<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f|%>
+		<%= f.label :pet_name, 'Add a Pet to this Application' %>
+		<%= f.text_field :pet_name %>
+		<%= f.submit 'Search Pets' %>
+	<% end %>
+<% end %>
+
 
 <% @pet_search.each do |pet| %>
 	<%= pet.name %><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}?pets=#{pet.id}", method: :patch%><br/> 

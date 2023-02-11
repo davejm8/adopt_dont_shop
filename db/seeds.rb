@@ -18,4 +18,4 @@ shelter_1.pets.create!(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: t
 shelter_3.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 shelter_1.pets.create!(name: 'Ms. Pirate', breed: 'tuxedo shorthair', age: 8, adoptable: true)
 
-Application.create!(name: 'Steve', street: '152 Steve St.', city: 'Denver', state: 'CO', zip: '40208', desc: "I'm nice.", status: 'pending')
+Application.create!(name: 'Steve', street: '152 Steve St.', city: 'Denver', state: 'CO', zip: '40208', status: 'In Progress')
