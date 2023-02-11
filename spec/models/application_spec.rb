@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Application, type: :model do
   it { should have_many :pet_applications}
   it { should have_many(:pets).through(:pet_applications)}
+	it { should define_enum_for(:status).with_values([:in_progress, :pending, :accepted, :rejected])}
 
   let!(:shelter_1)  { Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9) }
     let!(:shelter_2)  { Shelter.create!(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5) }
@@ -18,7 +19,7 @@ RSpec.describe Application, type: :model do
                                 state: 'CO', 
                                 zip: '40208', 
                                 desc: "I'm nice.", 
-                                status: 'Pending') }
+                                status: 'in_progress') }
     
     let!(:pet_app_1) {PetApplication.create!(pet_id: pet_1.id, application_id: app_1.id)}
 
@@ -38,6 +39,5 @@ RSpec.describe Application, type: :model do
     it {should validate_presence_of :city}
     it {should validate_presence_of :state}
     it {should validate_presence_of :zip}
-    it {should validate_presence_of :desc}
   end
 end
