@@ -15,7 +15,7 @@ RSpec.describe 'visit application show page' do
                                 city: 'Denver', 
                                 state: 'CO', 
                                 zip: '40208', 
-                                desc: "I'm nice.", 
+                                # desc: "I'm nice.", 
                                 status: 'Pending') }
     
     # let!(:pet_app_1) {PetApplication.create!(pet_id: pet_1.id, application_id: app_1.id)}
@@ -29,7 +29,7 @@ RSpec.describe 'visit application show page' do
       expect(page).to have_content(app_1.city)
       expect(page).to have_content(app_1.state)
       expect(page).to have_content(app_1.zip)
-      expect(page).to have_content(app_1.desc)
+      # expect(page).to have_content(app_1.desc)
       expect(page).to have_content(app_1.status)
     end
   end
@@ -73,5 +73,31 @@ RSpec.describe 'visit application show page' do
       expect(current_path).to eq("/applications/#{app_1.id}")
       expect(page).to have_content("#{pet_1.name}")
     end
+	end
+
+	describe 'submit application' do
+		before do
+			visit "/applications/#{app_1.id}"
+			
+			expect(page).to_not have_field(:desc)
+			fill_in 'pet_name', with: 'Pirate'
+			click_button 'Search Pets'
+	
+			click_button "Adopt #{pet_1.name}"
+		end
+
+		it 'after adding pets, I see a section to submit the application' do
+			expect(page).to have_field(:desc)
+		end
+
+		it 'shows a field to fill description and allows us to submit application' do
+			fill_in 'desc', with: "I'm nice."
+			click_button 'Submit Application'
+
+			expect(page).to have_content("I'm nice.")
+			expect(page).to_not have_button("Adopt #{pet_1.name}")
+			expect(page).to_not have_field(:pet_name)
+			expect(page).to_not have_field(:desc)
+		end
 	end
 end
