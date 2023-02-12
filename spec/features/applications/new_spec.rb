@@ -10,7 +10,7 @@ RSpec.describe 'visit application new page' do
 			fill_in 'city', with: 'Denver'
 			fill_in 'state', with: 'CO'
 			fill_in 'zip', with: '80214'
-			fill_in 'desc', with: 'I have a big home.'
+			
 			click_button
 	
 			@applicant = Application.all.first

@@ -37,7 +37,6 @@
 	<% end %>
 <% end %>
 
-
 <% @pet_search.each do |pet| %>
 	<%= pet.name %><%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}?pets=#{pet.id}", method: :patch%><br/> 
 <% end %>
