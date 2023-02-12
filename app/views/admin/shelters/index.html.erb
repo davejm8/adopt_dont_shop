@@ -1,4 +1,8 @@
 
+<%= link_to 'Shelters with Pending Applications', '/admin/shelters?filter_pending=true' %>
+
+<br><br>
+
 <% @shelters.each do |shelter| %>
   <%= shelter.name %>
   <br><br>
