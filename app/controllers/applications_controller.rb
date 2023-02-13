@@ -38,10 +38,6 @@ class ApplicationsController < ApplicationController
 		params.permit(:name, :street, :city, :state, :zip, :status)
 	end
 
-	def pet_params
-		params.permit(:pets)
-	end
-
 	def desc_params
 		params.permit(:desc)
 	end
