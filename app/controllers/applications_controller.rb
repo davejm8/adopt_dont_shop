@@ -25,9 +25,7 @@ class ApplicationsController < ApplicationController
 
 	def update
 		application = Application.find(params[:id])
-		if pet_params.present?
-			PetApplication.create!(application_id: application.id, pet_id: params[:pets])
-		elsif desc_params.present?
+		if desc_params.present?
 			application.update!(desc_params)
 			application.update! status: 1
 		end

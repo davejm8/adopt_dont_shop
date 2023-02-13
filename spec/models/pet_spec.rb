@@ -15,10 +15,20 @@ RSpec.describe Pet, type: :model do
   end
 
   before(:each) do
+		@app_1 = Application.create!(name: 'Steve', 
+																street: '152 Steve St.', 
+																city: 'Denver', 
+																state: 'CO', 
+																zip: '40208',
+																desc: 'I have home',
+																status: 'Pending')
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+		PetApplication.create!(application: @app_1, pet: @pet_1, approval: 0)
+		PetApplication.create!(application: @app_1, pet: @pet_2, approval: 1)
+		PetApplication.create!(application: @app_1, pet: @pet_3, approval: 2)
   end
 
   describe 'class methods' do
@@ -33,6 +43,22 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+		describe 'approved?' do
+			it 'returns pets who have been approved in applications' do
+				expect(@pet_1.approved?).to eq(false)
+				expect(@pet_2.approved?).to eq(true)
+				expect(@pet_3.approved?).to eq(false)
+			end
+		end
+
+		describe 'rejected?' do
+			it 'returns pets who have been approved in applications' do
+				expect(@pet_1.rejected?).to eq(false)
+				expect(@pet_2.rejected?).to eq(false)
+				expect(@pet_3.rejected?).to eq(true)
+			end
+		end
   end
 
   describe 'instance methods' do
