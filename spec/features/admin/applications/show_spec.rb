@@ -94,6 +94,19 @@ RSpec.describe 'admin applications show', type: :feature do
 
 				expect(page).to have_content("Status:\nAccepted")
 			end
+
+			it "approved status in one application does not affect another" do
+				visit "/admin/applications/#{app_1.id}"
+
+				click_button "Approve #{app_1.pets.first.name}"
+				click_button "Approve #{app_1.pets.last.name}"
+
+				expect(page).to have_content("Status:\nAccepted")
+
+				visit "/admin/applications/#{app_2.id}"
+
+				expect(page).to have_content("Status:\nIn Progress")
+			end
 		end
 	end
 end
