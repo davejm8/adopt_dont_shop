@@ -16,9 +16,9 @@
 
 <% @pets.each do |pet| %>
   <%= pet.name %>
-	<% if pet.approved? %>
+	<% if pet.approved?(@application.id) %>
 		<p> Approved </p>
-	<% elsif pet.rejected? %>
+	<% elsif pet.rejected?(@application.id) %>
 		<p> Rejected </p>
 	<% else %>
 		<%= button_to "Approve #{pet.name}", "/admin/pet_applications/#{@application.id}?approval=1&pet_id=#{pet.id}", method: :patch %>

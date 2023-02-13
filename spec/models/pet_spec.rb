@@ -46,17 +46,17 @@ RSpec.describe Pet, type: :model do
 
 		describe 'approved?' do
 			it 'returns pets who have been approved in applications' do
-				expect(@pet_1.approved?).to eq(false)
-				expect(@pet_2.approved?).to eq(true)
-				expect(@pet_3.approved?).to eq(false)
+				expect(@pet_1.approved?(@app_1.id)).to eq(false)
+				expect(@pet_2.approved?(@app_1.id)).to eq(true)
+				expect(@pet_3.approved?(@app_1.id)).to eq(false)
 			end
 		end
 
 		describe 'rejected?' do
 			it 'returns pets who have been approved in applications' do
-				expect(@pet_1.rejected?).to eq(false)
-				expect(@pet_2.rejected?).to eq(false)
-				expect(@pet_3.rejected?).to eq(true)
+				expect(@pet_1.rejected?(@app_1.id)).to eq(false)
+				expect(@pet_2.rejected?(@app_1.id)).to eq(false)
+				expect(@pet_3.rejected?(@app_1.id)).to eq(true)
 			end
 		end
   end
@@ -67,5 +67,6 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+      
   end
 end

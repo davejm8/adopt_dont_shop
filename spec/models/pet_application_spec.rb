@@ -24,13 +24,21 @@ RSpec.describe PetApplication, type: :model do
 																			state: 'CO', 
 																			zip: '40208',
 																			status: 'In Progress') }
-		let!(:petapp_1) { PetApplication.create!(pet: pet_1, application: app_1)}
-		let!(:petapp_2) { PetApplication.create!(pet: pet_1, application: app_2)}
-		let!(:petapp_3) { PetApplication.create!(pet: pet_2, application: app_1)}
-		let!(:petapp_4) { PetApplication.create!(pet: pet_2, application: app_2)}
+		let!(:petapp_1) { PetApplication.create!(pet: pet_1, application: app_1, approval: 1)}
+		let!(:petapp_2) { PetApplication.create!(pet: pet_1, application: app_2, approval: 1)}
+		let!(:petapp_3) { PetApplication.create!(pet: pet_2, application: app_1, approval: 1)}
+		let!(:petapp_4) { PetApplication.create!(pet: pet_2, application: app_2, approval: 0)}
 
 		it 'finds pet_applications by having both pet_id and app_id' do
 			expect(PetApplication.find_by_pet_app_ids(pet_1.id, app_1.id)).to eq(petapp_1)
 		end
+
+		describe '#all_approved?' do
+    
+      it 'returns true if all applications are approved' do
+        expect(PetApplication.all_approved?(app_1.id)).to eq(true)
+				expect(PetApplication.all_approved?(app_2.id)).to eq(false)
+      end
+    end
 	end
 end

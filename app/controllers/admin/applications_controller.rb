@@ -3,6 +3,11 @@ class Admin::ApplicationsController < ApplicationController
 		@application = Application.find(params[:id])
 		@pets = @application.pets
 		@pet_applications = @application.pet_applications
+    if PetApplication.all_approved?(@application.id)
+      @application.update status: 2
+    elsif !PetApplication.all_approved?(@application.id)
+      @application.update status: 3
+    end
   end
 
 	# def update
