@@ -1,0 +1,28 @@
+
+<h1><%= @application.name %></h1>
+<p style='font-weight: bold'>Street Address:</p>
+<%= @application.street %>
+<p style='font-weight: bold'>City:</p>
+<%= @application.city %>
+<p style='font-weight: bold'>State:</p>
+<%= @application.state %>
+<p style='font-weight: bold'>Zip:</p>
+<%= @application.zip %>
+<p style='font-weight: bold'>Why are you a good home?:</p>
+<%= @application.desc %>
+<p style='font-weight: bold'>Status:</p>
+<%= @application.status %>
+<p style='font-weight: bold'>Desired Pets:</p>
+
+<% @pets.each do |pet| %>
+  <%= pet.name %>
+	<% if pet.approved? %>
+		<p> Approved </p>
+	<% elsif pet.rejected? %>
+		<p> Rejected </p>
+	<% else %>
+		<%= button_to "Approve #{pet.name}", "/admin/pet_applications/#{@application.id}?approval=1&pet_id=#{pet.id}", method: :patch %>
+		<%= button_to "Reject #{pet.name}", "/admin/pet_applications/#{@application.id}?approval=2&pet_id=#{pet.id}", method: :patch %>
+
+	<% end %>
+<% end %>
