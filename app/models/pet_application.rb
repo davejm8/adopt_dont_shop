@@ -11,7 +11,7 @@ class PetApplication < ApplicationRecord
 		where(application_id: id).count == where(application_id: id, approval: 1).count
 	end
 
-	def self.all_rejected?(id)
-		where(application_id: id).count == where(application_id: id, approval: 2).count
+	def self.rejected?(id)
+		!where(application_id: id, approval: 2).none?
 	end
 end
