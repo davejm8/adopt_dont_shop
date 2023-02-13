@@ -91,7 +91,8 @@ RSpec.describe Shelter, type: :model do
 
     describe '.full_address' do
       it 'displays the full address of a shelter' do
-        expect(Shelter.full_address(@shelter_1.id)).to eq("155 Steve St. Boulder, CO. 12345")
+        shelter_4 = Shelter.create!(name: 'Aurora shelter', street: "Steve St.", city: 'Aurora, CO', zip: 02345, foster_program: false, rank: 9)
+        expect(Shelter.full_address(shelter_4.id)).to eq("Aurora shelter, Steve St., Aurora, CO. 1253")
       end
     end
   end
