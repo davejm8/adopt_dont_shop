@@ -37,6 +37,27 @@ RSpec.describe 'admin applications show', type: :feature do
 			click_button "Approve #{app_1.pets.first.name}"
 
 			expect(current_path).to eq("/admin/applications/#{app_1.id}")
+			expect(page).to_not have_button("Approve #{app_1.pets.first.name}")
+			expect(page).to have_content('Approved')
+		end
+
+		describe 'pet rejection' do
+			it 'shows a button to reject a pet for an application' do
+				visit "/admin/applications/#{app_1.id}"
+
+				expect(page).to have_content(app_1.pets.first.name)
+				expect(page).to have_button("Reject #{app_1.pets.first.name}")
+			end
+
+			it 'when rejecting a pet, it refreshes the page and the button is gone and it shows rejected' do
+				visit "/admin/applications/#{app_1.id}"
+
+				click_button "Reject #{app_1.pets.first.name}"
+	
+				expect(current_path).to eq("/admin/applications/#{app_1.id}")
+				expect(page).to_not have_button("Reject #{app_1.pets.first.name}")
+				expect(page).to have_content('Rejected')
+			end
 		end
 	end
 end
