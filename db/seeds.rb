@@ -20,4 +20,6 @@ pet_3 = shelter_3.pets.create!(name: 'Lucille Bald', breed: 'sphynx', age: 8, ad
 pet_4 = shelter_1.pets.create!(name: 'Ms. Pirate', breed: 'tuxedo shorthair', age: 8, adoptable: true)
 
 app_1 = Application.create!(name: 'Steve', street: '152 Steve St.', city: 'Denver', state: 'CO', zip: '40208', status: 'In Progress')
+app_2 = Application.create!(name: 'Beve', street: '100 Beve Pwky.', city: 'Denver', state: 'CO', zip: '40218', status: 'In Progress')
 PetApplication.create!(pet: pet_1, application: app_1 )
+PetApplication.create!(pet: pet_2, application: app_2 )

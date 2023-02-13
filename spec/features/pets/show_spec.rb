@@ -25,4 +25,19 @@ RSpec.describe 'the shelter show' do
     expect(page).to have_current_path('/pets')
     expect(page).to_not have_content(pet.name)
   end
+
+  it 'displays that a pet is no longer adoptable once an application for them is approved' do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    scrappy = Pet.create(name: 'Scrappy', age: 1, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    app_1 = Application.create!(name: 'Steve', street: 'Steve St.', city: 'Steveville', state: 'ST', zip: '12345', status: "In Progress")
+    PetApplication.create!(pet: scrappy, application: app_1)
+
+    visit "admin/applications/#{app_1.id}"
+
+    click_button("Approve #{scrappy.name}")
+
+    visit "/pets/#{scrappy.id}"
+
+    expect(page).to have_content('false')
+  end
 end
