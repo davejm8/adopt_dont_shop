@@ -108,5 +108,23 @@ RSpec.describe 'admin applications show', type: :feature do
 				expect(page).to have_content("Status:\nIn Progress")
 			end
 		end
+
+		describe 'pets who are approved or in a pending application can not be approved again' do
+			it 'removes the approve button from show page when pet is adopted or pending adoption' do
+				visit "/admin/applications/#{app_1.id}"
+
+				click_button "Approve #{app_1.pets.first.name}"
+				click_button "Approve #{app_1.pets.last.name}"
+				
+				visit "/admin/applications/#{app_2.id}"
+				
+				expect(page).to_not have_button("Accept #{app_2.pets.first.name}")
+				expect(page).to_not have_button("Accept #{app_2.pets.last.name}")
+				expect(page).to_not have_button("Reject #{app_2.pets.first.name}")
+				expect(page).to_not have_button("Reject #{app_2.pets.last.name}")
+				expect(page).to have_content("#{app_2.pets.first.name} has been adopted.")
+				expect(page).to have_content("#{app_2.pets.last.name} has been adopted.")
+			end
+		end
 	end
 end

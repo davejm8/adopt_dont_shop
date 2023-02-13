@@ -20,6 +20,8 @@
 		<p> Approved </p>
 	<% elsif pet.rejected?(@application.id) %>
 		<p> Rejected </p>
+	<% elsif !pet.adoptable %>
+		<p><%= "#{pet.name} has been adopted." %></p>
 	<% else %>
 		<%= button_to "Approve #{pet.name}", "/admin/pet_applications/#{@application.id}?approval=1&pet_id=#{pet.id}", method: :patch %>
 		<%= button_to "Reject #{pet.name}", "/admin/pet_applications/#{@application.id}?approval=2&pet_id=#{pet.id}", method: :patch %>
