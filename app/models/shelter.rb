@@ -39,4 +39,8 @@ class Shelter < ApplicationRecord
 	def self.pending_applications
 		joins(pets: [:applications]).where(applications: { status: 1 }).distinct
 	end
+
+  def self.full_address(id)
+    find_by_sql("SELECT name, street, city, zip FROM shelters WHERE id = #{id}")
+  end
 end

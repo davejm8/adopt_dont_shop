@@ -51,7 +51,9 @@ ActiveRecord::Schema.define(version: 2023_02_09_211415) do
   create_table "shelters", force: :cascade do |t|
     t.boolean "foster_program"
     t.string "name"
+    t.string "street"
     t.string "city"
+    t.integer "zip"
     t.integer "rank"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

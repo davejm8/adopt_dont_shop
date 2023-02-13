@@ -13,13 +13,14 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-	def approved?
-		approved_pets = Pet.joins(:applications).where(pet_applications: {approval: 1})
+	def approved?(id)
+		approved_pets = Pet.joins(:applications).where(pet_applications: {approval: 1, application_id: id})
 		approved_pets.include?(self)
 	end
 
-	def rejected?
-		rejected_pets = Pet.joins(:applications).where(pet_applications: {approval: 2})
+	def rejected?(id)
+		rejected_pets = Pet.joins(:applications).where(pet_applications: {approval: 2, application_id: id})
 		rejected_pets.include?(self)
 	end
+
 end
