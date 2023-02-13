@@ -20,6 +20,7 @@ RSpec.describe 'admin applications show', type: :feature do
 																		zip: '40208',
 																		status: 'In Progress') }
 	let!(:petapp_1) { PetApplication.create!(pet: pet_1, application: app_1)}
+	let!(:petapp_1) { PetApplication.create!(pet: pet_1, application: app_2)}
 	let!(:petapp_2) { PetApplication.create!(pet: pet_2, application: app_1)}
 	let!(:petapp_3) { PetApplication.create!(pet: pet_2, application: app_2)}
   
@@ -57,6 +58,30 @@ RSpec.describe 'admin applications show', type: :feature do
 				expect(current_path).to eq("/admin/applications/#{app_1.id}")
 				expect(page).to_not have_button("Reject #{app_1.pets.first.name}")
 				expect(page).to have_content('Rejected')
+			end
+		end
+
+		describe 'changing approval of pets per application' do
+			it 'when approving a pet, it doesnt affect other applications' do
+				visit "/admin/applications/#{app_1.id}"
+
+				expect(app_1.pets.first.approved?).to eq(false)
+				
+				click_button "Approve #{app_1.pets.first.name}"
+
+				expect(app_1.pets.first.approved?).to eq(true)
+				expect(app_2.pets.first.approved?).to eq(false)
+			end
+
+			it 'when rejecting a pet, it doesnt affect other applications' do
+				visit "/admin/applications/#{app_1.id}"
+
+				expect(app_1.pets.first.rejected?).to eq(false)
+
+				click_button "Reject #{app_1.pets.first.name}"
+
+				expect(app_1.pets.first.rejected?).to eq(true)
+				expect(app_2.pets.first.rejected?).to eq(false)
 			end
 		end
 	end
