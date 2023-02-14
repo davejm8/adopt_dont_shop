@@ -26,7 +26,7 @@ require 'rails_helper'
     it 'shows a shelters name and full address' do
       visit "admin/shelters/#{shelter_1.id}"
 
-      expect(page).to have_content("#{shelter_1.name} #{shelter_1.street} #{shelter_1.city} #{shelter_1.zip}")
+      expect(page).to have_content("#{shelter_1.name}, #{shelter_1.street}, #{shelter_1.city}. #{shelter_1.zip}")
     end
     
 		it 'has a section for statistics' do

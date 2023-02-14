@@ -1,5 +1,4 @@
-<%= @shelter.name %>
-<%= "#{@shelter.street} #{@shelter.city} #{@shelter.zip}" %>
+<%= Shelter.full_address(@shelter.id) %>
 <%= "Statistics" %>
 <%= "Average pet age: #{@shelter.adoptable_pets.average_age}" %>
 <%= "Number of adoptable pets: #{@shelter.adoptable_pets.num_pets}" %>
