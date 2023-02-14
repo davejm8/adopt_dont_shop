@@ -7,4 +7,9 @@ class Application < ApplicationRecord
   def pet_names
     self.pets.pluck(:name)
   end
+
+  # def app_approved(pet_id)
+  #   app = Application.joins(:pets).where(pets: {id: pet_id}).pluck(:status)
+  #   app.include?('Approved')
+  # end
 end
