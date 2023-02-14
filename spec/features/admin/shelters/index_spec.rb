@@ -50,4 +50,15 @@ require 'rails_helper'
 			expect(page).to_not have_content(shelter_2.name)
 			expect(page).to_not have_content(shelter_3.name)
 		end
+
+		it 'every shelter name is a link to the shelters admin show page' do
+			visit '/admin/shelters'
+
+			expect(page).to have_link("Aurora shelter")
+			expect(page).to have_link("RGV animal shelter")
+
+			click_link 'Aurora shelter'
+
+			expect(current_path).to eq("/admin/shelters/#{shelter_1.id}") 
+		end
   end
