@@ -1,4 +1,5 @@
 <%= Shelter.full_address(@shelter.id) %>
 <%= "Statistics" %>
+<p>Number of adopted pets: <%= @shelter.adopted_pets %> </p>
 <%= "Average pet age: #{@shelter.adoptable_pets.average_age}" %>
 <%= "Number of adoptable pets: #{@shelter.adoptable_pets.num_pets}" %>

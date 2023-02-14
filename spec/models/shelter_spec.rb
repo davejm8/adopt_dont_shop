@@ -29,7 +29,24 @@ RSpec.describe Shelter, type: :model do
 																 zip: '40208',
 																 desc: 'I have home',
 																 status: 'Pending')
-		@pet_app = PetApplication.create!(pet: @pet_3, application: @app_1)
+		@app_2 = Application.create!(name: 'Steve', 
+																 street: '152 Steve St.', 
+																 city: 'Denver', 
+																 state: 'CO', 
+																 zip: '40208',
+																 desc: 'I have home',
+																 status: 'Accepted')
+		@app_3 = Application.create!(name: 'Steve', 
+																 street: '152 Steve St.', 
+																 city: 'Denver', 
+																 state: 'CO', 
+																 zip: '40208',
+																 desc: 'I have home',
+																 status: 'Rejected')
+		@pet_app1 = PetApplication.create!(pet: @pet_3, application: @app_1)
+		@pet_app2 = PetApplication.create!(pet: @pet_1, application: @app_2)
+		@pet_app3 = PetApplication.create!(pet: @pet_2, application: @app_2)
+		@pet_app4 = PetApplication.create!(pet: @pet_4, application: @app_3)
   end
 
   describe 'class methods' do
@@ -95,5 +112,11 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.full_address(shelter_4.id)).to eq("Aurora shelter, Steve St., Aurora, CO. 1253")
       end
     end
+
+		describe '.adopted_pets' do
+			it 'returns an integer with amount adopted pets' do
+				expect(@shelter_1.adopted_pets).to eq(2)
+			end
+		end
   end
 end
