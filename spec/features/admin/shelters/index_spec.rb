@@ -52,6 +52,17 @@ require 'rails_helper'
 			expect(page).to_not have_content(shelter_3.name)
 		end
 
+		it 'every shelter name is a link to the shelters admin show page' do
+			visit '/admin/shelters'
+
+			expect(page).to have_link("Aurora shelter")
+			expect(page).to have_link("RGV animal shelter")
+
+			click_link 'Aurora shelter'
+
+			expect(current_path).to eq("/admin/shelters/#{shelter_1.id}") 
+		end
+
 		it 'lists the shelters with pending applications in alphabetical order' do
 			pet_3 = shelter_4.pets.create!(name: 'Koa', breed: 'mixed breed', age: 9, adoptable: true)
 			pet_4 = shelter_4.pets.create!(name: 'Cookie', breed: 'Yorkie', age: 3, adoptable: true)

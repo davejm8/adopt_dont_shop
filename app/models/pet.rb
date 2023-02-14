@@ -23,4 +23,11 @@ class Pet < ApplicationRecord
 		rejected_pets.include?(self)
 	end
 
+	def self.average_age
+		average(:age).to_i
+	end
+
+	def self.num_pets
+		count
+	end
 end

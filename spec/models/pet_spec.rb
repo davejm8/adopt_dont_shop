@@ -24,8 +24,8 @@ RSpec.describe Pet, type: :model do
 																status: 'Pending')
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
-    @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-    @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
+    @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 5, adoptable: true)
+    @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: false)
 		PetApplication.create!(application: @app_1, pet: @pet_1, approval: 0)
 		PetApplication.create!(application: @app_1, pet: @pet_2, approval: 1)
 		PetApplication.create!(application: @app_1, pet: @pet_3, approval: 2)
@@ -66,6 +66,18 @@ RSpec.describe Pet, type: :model do
       it 'returns the shelter name for the given pet' do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
+    end
+  end
+
+  describe '#average_age' do
+    it 'shows average age of a collection of pets' do
+      expect(@shelter_1.pets.average_age).to eq(5)
+    end
+  end
+
+  describe '#pet_count' do
+    it 'shows number of pets in a collection' do
+      expect(@shelter_1.pets.num_pets). to eq(3)
     end
   end
 end
