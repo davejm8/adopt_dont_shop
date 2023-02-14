@@ -33,5 +33,6 @@ require 'rails_helper'
 			visit "admin/shelters/#{shelter_1.id}"
 
 			expect(page).to have_content("Average pet age: #{shelter_1.adoptable_pets.average_age}")
+			expect(page).to have_content("Number of adoptable pets: #{shelter_1.adoptable_pets.num_pets}")
 		end
   end

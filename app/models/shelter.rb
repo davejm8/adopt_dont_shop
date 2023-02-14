@@ -44,8 +44,4 @@ class Shelter < ApplicationRecord
    shelter = self.find_by_sql("SELECT name, street, city, zip FROM shelters WHERE id = #{id}")
    "#{shelter.first.name}, #{shelter.first.street}, #{shelter.first.city}. #{shelter.first.zip}"
   end
-
-  # def average_age
-  #   pets.average(:age)
-  # end
 end
