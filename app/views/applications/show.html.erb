@@ -1,18 +1,13 @@
+<%= render partial: 'partials/app_details', locals: {
+	name: @application.name,
+	street: @application.street,
+	city: @application.city,
+	state: @application.state,
+	zip: @application.zip,
+	desc: @application.desc,
+	status: @application.status
+} %>
 
-<h1><%= @application.name %></h1>
-<p style='font-weight: bold'>Street Address:</p>
-<%= @application.street %>
-<p style='font-weight: bold'>City:</p>
-<%= @application.city %>
-<p style='font-weight: bold'>State:</p>
-<%= @application.state %>
-<p style='font-weight: bold'>Zip:</p>
-<%= @application.zip %>
-<p style='font-weight: bold'>Why are you a good home?:</p>
-<%= @application.desc %>
-<p style='font-weight: bold'>Status:</p>
-<%= @application.status %>
-<p style='font-weight: bold'>Desired Pets:</p>
 <% @pets.each do |pet| %>
   <%= pet.name %>
 <% end %>
