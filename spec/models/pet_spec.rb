@@ -22,7 +22,21 @@ RSpec.describe Pet, type: :model do
 																zip: '40208',
 																desc: 'I have home',
 																status: 'Accepted')
-		@app_2 = Application.create!(name: 'Steve', 
+		@app_2 = Application.create!(name: 'Maria', 
+																street: '152 Steve St.', 
+																city: 'Denver', 
+																state: 'CO', 
+																zip: '40208',
+																desc: 'I have home',
+																status: 'Pending')
+		@app_3 = Application.create!(name: 'John', 
+																street: '152 Steve St.', 
+																city: 'Denver', 
+																state: 'CO', 
+																zip: '40208',
+																desc: 'I have home',
+																status: 'Pending')
+		@app_4 = Application.create!(name: 'Chris', 
 																street: '152 Steve St.', 
 																city: 'Denver', 
 																state: 'CO', 
@@ -42,6 +56,8 @@ RSpec.describe Pet, type: :model do
 		PetApplication.create!(application: @app_2, pet: @pet_4, approval: 0)
 		PetApplication.create!(application: @app_2, pet: @pet_5, approval: 0)
 		PetApplication.create!(application: @app_2, pet: @pet_6, approval: 0)
+		PetApplication.create!(application: @app_3, pet: @pet_2, approval: 0)
+		PetApplication.create!(application: @app_4, pet: @pet_2, approval: 0)
   end
 
   describe 'class methods' do
@@ -94,9 +110,15 @@ RSpec.describe Pet, type: :model do
     end
   end
 
-	describe '.shelter_pets_pending_apps' do
+	describe '#shelter_pets_pending_apps' do
 		it 'returns pets who have pending applciations' do
-			expect(Pet.shelter_pets_with_pending_apps(@shelter_1)).to eq([@pet_4, @pet_5, @pet_6])
+			expect(Pet.shelter_pets_with_pending_apps(@shelter_1)).to eq([@pet_2, @pet_4, @pet_5, @pet_6])
+		end
+	end
+
+	describe '.pending_application_ids' do
+		it 'returns an array with application ids for pending applications' do
+			expect(@pet_2.pending_applications).to eq([@app_3, @app_4])
 		end
 	end
 end

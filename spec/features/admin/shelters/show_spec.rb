@@ -76,5 +76,18 @@ require 'rails_helper'
 				expect(page).to have_content(pet_4.name)
 				expect(page).to have_content(pet_5.name)
 			end
+
+			it 'each pet has a link to the admin/application show page' do
+				visit "admin/shelters/#{shelter_1.id}"
+
+				expect(page).to have_link("Visit #{app_5.name}'s Application")
+				expect(page).to have_link("Visit #{app_5.name}'s Application")
+				
+				within "div##{app_5.id}#{pet_4.id}" do
+					click_link "Visit #{app_5.name}'s Application"
+				end
+
+				expect(page).to have_button("Approve #{pet_4.name}")
+			end
 		end
   end
