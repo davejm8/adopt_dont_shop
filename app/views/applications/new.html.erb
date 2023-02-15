@@ -1,19 +1,32 @@
-<%= form_with url: "/applications", local: true do |f| %>
-	<%= f.label :name, 'Applicant Name'%>
-	<%= f.text_field :name %>
-	<br/><br/>
-	<%= f.label :street, 'Street Address:'%>
-	<%= f.text_field :street %>
-	<br/><br/>
-	<%= f.label :city, 'City:' %>
-	<%= f.text_field :city %>
-	<br/><br/>
-	<%= f.label :state, 'State:' %>
-	<%= f.text_field :state %>
-	<br/><br/>
-	<%= f.label :zip, 'Zipcode:' %>
-	<%= f.text_field :zip %>
-	<br/><br/>
-	<%= f.hidden_field :status, value: "In Progress" %>
-	<%= f.submit 'Submit Application' %>
+<%= form_with url: "/applications", local: true, html: {class: "form"} do |f| %>
+  <div class="form-group">
+    <%= f.label :name, 'Applicant Name:', class: 'form-label' %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :street, 'Street Address:', class: 'form-label' %>
+    <%= f.text_field :street, class: 'form-control' %>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f.label :city, 'City:', class: 'form-label' %>
+      <%= f.text_field :city, class: 'form-control' %>
+    </div>
+    <div class="form-group col-md-4">
+      <%= f.label :state, 'State:', class: 'form-label' %>
+      <%= f.text_field :state, class: 'form-control' %>
+    </div>
+    <div class="form-group col-md-2">
+      <%= f.label :zip, 'Zipcode:', class: 'form-label' %>
+      <%= f.text_field :zip, class: 'form-control' %>
+    </div>
+  </div>
+
+  <%= f.hidden_field :status, value: "In Progress" %>
+
+  <div class="form-group">
+    <%= f.submit 'Submit Application', class: 'btn btn-primary' %>
+  </div>
 <% end %>

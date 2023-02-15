@@ -10,17 +10,23 @@
   </head>
 
   <body>
+  <div class="container">
     <% flash.each do |type, msg| %>
-      <div>
+      <div class="alert alert-<%= type %>">
         <%= msg %>
       </div>
     <% end %>
-    <section>
-      <p><%= link_to "Pets", "/pets" %></p>
-      <p><%= link_to "Shelters", "/shelters" %></p>
-      <p><%= link_to "Veterinarians", "/veterinarians" %></p>
-      <p><%= link_to "Veterinary Offices", "/veterinary_offices" %></p>
-    </section>
-    <%= yield %>
-  </body>
+
+    <nav class="nav">
+      <a class="nav-link" href="/pets">Pets</a>
+      <a class="nav-link" href="/shelters">Shelters</a>
+      <a class="nav-link" href="/veterinarians">Veterinarians</a>
+      <a class="nav-link" href="/veterinary_offices">Veterinary Offices</a>
+    </nav>
+
+    <main>
+      <%= yield %>
+    </main>
+  </div>
+</body>
 </html>
