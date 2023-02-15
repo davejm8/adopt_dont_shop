@@ -8,5 +8,6 @@ class Admin::SheltersController < ApplicationController
 
 	def show
 		@shelter = Shelter.find(params[:id])
+		@pets_pending_apps = Pet.shelter_pets_with_pending_apps(@shelter.id)
 	end
 end

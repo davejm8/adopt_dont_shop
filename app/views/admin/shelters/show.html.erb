@@ -1,4 +1,17 @@
 <%= Shelter.full_address(@shelter.id) %>
-<%= "Statistics" %>
-<%= "Average pet age: #{@shelter.adoptable_pets.average_age}" %>
-<%= "Number of adoptable pets: #{@shelter.adoptable_pets.num_pets}" %>
+<h4>Statistics</h4>
+<p>Number of adopted pets: <%= @shelter.adopted_pets %> </p>
+<%= "Average pet age: #{@shelter.adoptable_pets.average_age}" %><br/></br>
+<%= "Number of adoptable pets: #{@shelter.adoptable_pets.num_pets}" %><br/>
+
+<h3>Action Required</h3>
+<% @pets_pending_apps.each do |pet| %>
+	<p><%= pet.name %></p>
+	<% pet.pending_applications.each do |app| %>
+
+		<div id=<%= app.id %><%= pet.id %>>
+			<%= link_to "Visit #{app.name}'s Application", "/admin/applications/#{app.id}" %>
+		</div>
+
+	<% end %>
+<% end %>
