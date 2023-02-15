@@ -30,4 +30,8 @@ class Pet < ApplicationRecord
 	def self.num_pets
 		count
 	end
+
+	def self.shelter_pets_with_pending_apps(shelter_id)
+		joins(:applications).where(shelter_id: shelter_id, applications: {status: 1})
+	end
 end
